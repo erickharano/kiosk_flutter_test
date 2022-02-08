@@ -11,19 +11,31 @@ class PageThree extends StatefulWidget {
 }
 
 class _PageThreeState extends State<PageThree> {
+  late Timer timer;
+
+  void _timerCallback() {
+    timer = Timer(
+      const Duration(seconds: 10),
+      () => Modular.to.popAndPushNamed("/four"),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    _timerCallback();
   }
 
   @override
   Widget build(BuildContext context) {
-    Timer(
-      const Duration(seconds: 3),
-      () => Modular.to.popAndPushNamed("/four"),
-    );
-
-    return const Center(
+    return GestureDetector(
+      onTapDown: (tapDown) {
+        if (timer != null) {
+          timer.cancel();
+        }
+        _timerCallback();
+      },
+      behavior: HitTestBehavior.translucent,
       child: Text("Page Three"),
     );
   }
