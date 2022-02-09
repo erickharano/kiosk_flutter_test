@@ -35,12 +35,12 @@ class _PageFourState extends State<PageFour> {
       // onSecondaryLongPressEnd: (longPress) {
       //   print('deslizando');
       // },
-      // onTapDown: (tapDown) {
-      //   if (timer != null) {
-      //     timer.cancel();
-      //   }
-      //   _timerCallback();
-      // },
+      onTapDown: (tapDown) {
+        if (timer != null) {
+          timer.cancel();
+        }
+        _timerCallback();
+      },
       behavior: HitTestBehavior.translucent,
       child: const Center(
         child: Text("Page Four"),
