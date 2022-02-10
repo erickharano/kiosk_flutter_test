@@ -3,14 +3,26 @@ import 'dart:async';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ScreenInactive {
-  Future<Timer> timer(int seconds, String routeName) async {
-    return Timer(
+  final int seconds;
+  final String route;
+
+  late Timer _start;
+
+  ScreenInactive({
+    required this.seconds,
+    required this.route,
+  });
+
+  void start() {
+    _start = Timer(
       Duration(seconds: seconds),
       () {
-        Modular.to.pushReplacementNamed(routeName);
+        Modular.to.pushReplacementNamed(route);
       },
     );
   }
 
-  timer2(int seconds, String routeName) => Future.delayed(Duration(seconds: seconds), () => Modular.to.pushReplacementNamed(routeName));
+  void cancel() {
+    _start.cancel();
+  }
 }

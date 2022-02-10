@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../shared/presenter/timer/screen_inactive.dart';
 
 class PageThree extends StatefulWidget {
   const PageThree({Key? key}) : super(key: key);
@@ -11,13 +10,11 @@ class PageThree extends StatefulWidget {
 }
 
 class _PageThreeState extends State<PageThree> {
-  late Timer timer;
+  late ScreenInactive screenInactive;
 
   void _timerCallback() {
-    timer = Timer(
-      const Duration(seconds: 10),
-      () => Modular.to.popAndPushNamed("/four"),
-    );
+    screenInactive = ScreenInactive(route: "/four", seconds: 5);
+    screenInactive.start();
   }
 
   @override
@@ -30,13 +27,14 @@ class _PageThreeState extends State<PageThree> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tapDown) {
-        if (timer != null) {
-          timer.cancel();
+        if (screenInactive != null) {
+          screenInactive.cancel();
         }
+
         _timerCallback();
       },
       behavior: HitTestBehavior.translucent,
-      child: Text("Page Three"),
+      child: const Text("Page Three"),
     );
   }
 }
